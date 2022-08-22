@@ -1,0 +1,62 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<iomanip>
+#include <cmath>
+using namespace std;
+typedef long long ll;
+#define loop(i,n) for(ll i=0; i<n; i++) 
+#define fillArray(n,arr) int arr[n]; for(int ii=0; ii<n; ii++)cin>>arr[ii]
+//#include <bits/stdc++.h> 
+using namespace std; 
+
+
+ll gcd(ll one, ll two)
+{
+    if(one < two)    
+        swap(one,two);
+    if(two ==0)
+        return one;
+    return(gcd(one%two, two));
+}
+ll lcm(ll one,ll two)
+{
+    return(two /gcd(one,two) * one);
+}
+int arr[5];
+ll n,m,a,D;
+ll inc_exc(int indx=0, ll d=1, int sign =-1)
+{
+    if(indx ==5)
+    {
+        if(d ==1)
+            return 0;
+        return((m- m/d) - ((n-1)- (n-1)/d)) * sign;
+    }
+    return(inc_exc(indx+1,d,sign)+ inc_exc(indx+1, lcm(d , arr[indx]), (-1) * sign));
+
+}
+int sum(int i)
+{
+    if(i == 0)
+        return(0);
+    return(i + sum(i-1));
+}
+int q = 59;
+int power(int x, int y)
+{
+    if(y ==0)
+        return(1);
+    int temp = power(x,y/2)%q;
+    temp *= temp;
+    if(y%2)
+        temp *= x;
+    temp %=q;
+        return(temp);
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cout<<(power(390,q-1)%q);
+    
+}
